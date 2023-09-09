@@ -1,0 +1,45 @@
+.sidebar{
+    position: sticky;
+    top:80px;
+    flex:0.2;
+    border-radius: 10px;
+    text-align: center;
+    height: fit-content;
+}
+
+.sidebar__avatar{
+    margin-bottom: 10px;
+} 
+
+.sidebar__top{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    border:1px solid lightgrey;
+    border-bottom: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius:10px;
+    background-color:white;
+    padding-bottom: 10px;;
+}
+
+.sidebar__top > img{
+    width: 100%;
+    margin-bottom: -20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius:10px;
+    height:60px;
+    object-fit: cover;
+
+}
+.sidebar__stat{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar__stat > p{
+    color: gray;
+    font-size: 13px;
+    font-weight: 600;
+}
