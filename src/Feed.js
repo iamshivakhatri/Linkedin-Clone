@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import  './Feed.css'
+
+import "./Feed.css"
 import InputOption from './InputOption';
 import CreateIcon from '@mui/icons-material/Create';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
@@ -9,10 +10,23 @@ import ArticleIcon from '@mui/icons-material/Article';
 import Post from './Post'
 import { db, auth } from './Firebase'; 
 import { collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from 'firebase/firestore'; 
+import { useSelector } from 'react-redux';
+import {selectUser } from './features/userSlice';
+import FlipMove from 'react-flip-move';
 
+/**
+ * 
+ * import FlipMove from 'react-flip-move';
+ * 
+ * cover the section with 
+ *  <FlipMove>
+ * </FlipMove>
+ * 
+ */
 
 
 const Feed = () => {
+    const user = useSelector(selectUser);
     const [input, setInput] = useState("")
     const [posts, setPosts] = useState([{
 
@@ -53,10 +67,10 @@ const Feed = () => {
     
         try {
             await addDoc(collection(db, 'posts'), {
-                name: "shiva khatri",
-                description: "this is a test",
+                name: user.displayName,
+                description: user.email,
                 message: input,
-                photoUrl: "",
+                photoUrl: user.photoUrl || '',
                 timestamp: serverTimestamp()
             });
     
@@ -95,6 +109,7 @@ const Feed = () => {
 
         </div>
          {/**Posts */}
+         <FlipMove>
          {posts.map(({ id, data }) => {
     const { name, description, message, photoUrl } = data || {};
     return (
@@ -108,6 +123,7 @@ const Feed = () => {
     );
 })}
 
+</FlipMove>
      
         
 

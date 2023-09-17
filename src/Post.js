@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import './Post.css'
 
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -7,13 +7,19 @@ import InputOption from './InputOption';
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import SendIcon from '@mui/icons-material/Send';
+//yarn add react-flip-move
+//forwardRef helps to add animation
+//import {forwardRef} from 'react'
 
-const Post = ({name, description, message, photoUrl}) => {
+const Post = forwardRef(({name, description, message, photoUrl}, ref) => {
+
  
   return (
-    <div className='post'>
+    <div  ref = {ref} className='post'>
        <div className="post__header">
-        <Avatar/>
+        <Avatar src = {photoUrl}>
+          {name[0]}
+        </Avatar>
         <div className="post__info">
           <h2>{name}</h2>
           <p> {description}</p>
@@ -35,6 +41,6 @@ const Post = ({name, description, message, photoUrl}) => {
 
         </div>
   )
-}
+})
 
 export default Post
