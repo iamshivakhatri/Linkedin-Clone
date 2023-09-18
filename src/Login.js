@@ -8,6 +8,25 @@ import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPasswo
 
 
 const Login = () => {
+    const [activeTab, setActiveTab] = useState('login'); // Set 'login' as the default active tab
+
+  
+    const[showSignup, setShowSignup] = useState(false);
+    const[showLogin, setShowLogin] = useState(true);
+
+    const toggleBox = (value)=>{
+        setActiveTab(value)
+        if (value == "login"){
+            setShowLogin(true);
+            setShowSignup(false);
+        }else if(value == "signup"){
+            setShowSignup(true);
+            setShowLogin(false);
+        }
+
+    }
+
+
     const [name, setName ] = useState("");
     const [email, setEmail ] = useState("");
     const [password, setPassword ] = useState("");
@@ -60,9 +79,51 @@ const Login = () => {
   return (
     <div className='login'>
         <img src="" alt="" />
-   
+        
+        <div className='log__header'>
+      <div
+        className={`log__head ${activeTab === 'login' ? 'active' : ''}`}
+        onClick={() => toggleBox('login')}
+      >
+        Login
+        {activeTab === 'login' && <div className='horizontal-line'></div>}
+      </div>
+      <div
+        className={`log__head ${activeTab === 'signup' ? 'active' : ''}`}
+        onClick={() => toggleBox('signup')}
+      >
+        Signup
+        {activeTab === 'signup' && <div className='horizontal-line'></div>}
+      </div>
+    </div>
+        {showLogin && 
+        (
+            <form action="">
+        
+            <input
+            value={email}
+            onChange={(e)=>{setEmail(e.target.value)}}
+            placeholder='Email' 
+            type="email" />
 
-        <form action="">
+            <input
+            placeholder='Password' 
+            value={password}
+            onChange={(e)=>{setPassword(e.target.value)}}
+            type="password" />      
+
+            <button type='submit' onClick={loginToApp}>
+                Sign In
+            </button>
+
+
+        </form> 
+        )
+        
+        }
+        {showSignup && 
+        (
+            <form action="">
             <input 
             value = {name}
             onChange={(e)=>{setName(e.target.value)}}
@@ -88,19 +149,27 @@ const Login = () => {
             onChange={(e)=>{setPassword(e.target.value)}}
             type="password" />      
 
-            <button type='submit' onClick={loginToApp}>
-                Sign In
+            <button type='submit' onClick={register}>
+                Sign UP
             </button>
 
 
         </form> 
-        <p> Not a member? {"  "}
-            <span className='login__register' onClick={register}> 
+        )
+        
+        }
+
+      {showLogin && (
+            <p> Not a member? {"  "}
+            <span className='login__register' onClick={()=>{toggleBox("signup")}}> 
                 
                 Register Now
             </span>
             
-            </p>
+        </p>
+
+      )}
+        
     </div>
   )
 }
